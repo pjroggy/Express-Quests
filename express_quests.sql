@@ -77,7 +77,13 @@ VALUES
     'English'
   ),
   (
-    'Valeriy',
+    'Valeriy',  (
+    'John',
+    'Doe',
+    'john.doe@example.com',
+    'Paris',
+    'English'
+  ),
     'Appius',
     'valeriy.appius@example.com',
     'Moscow',

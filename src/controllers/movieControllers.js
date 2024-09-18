@@ -34,7 +34,7 @@ const getMovies = (req, res) => {
   if (req.query.color != null) {
     sql += " where color = ?";
     sqlValues.push(req.query.color);
-    
+
     if (req.query.max_duration != null) {
       sql += " and duration  <= ?";
       sqlValues.push(req.query.max_duration);
@@ -43,7 +43,6 @@ const getMovies = (req, res) => {
     sql += " where duration  <= ?";
     sqlValues.push(req.query.max_duration);
   }
-
 
   database
     .query(sql, sqlValues)
@@ -74,7 +73,26 @@ const getMovieById = (req, res) => {
     });
 };
 
+const postMovie = (req, res) => {
+  const { title, director, year, color, duration } = req.body;
+
+  database
+
+    .query(
+      "INSERT INTO movies(title, director, year, color, duration) VALUES (?, ?, ?, ?, ?)",
+      [title, director, year, color, duration]
+    )
+    .then(([result]) => {
+      res.status(201).send({ id: result.insertId });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   getMovies,
   getMovieById,
+  postMovie,
 };
